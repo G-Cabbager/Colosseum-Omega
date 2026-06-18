@@ -180,81 +180,120 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
 
     std::cout << "=== RA2 单位/步兵批量生成工具 ===\n";
-    std::cout << "请选择生成类型:\n";
-    std::cout << "1 - 单位 (Vehicle/Unit)\n";
-    std::cout << "2 - 步兵 (Infantry)\n";
-    int choice;
-    std::cin >> choice;
+
+    // 询问要输入几次
+    int times;
+    std::cout << "请输入要生成的组数: ";
+    std::cin >> times;
     std::cin.ignore();
 
-    BaseEntity base;
+    // 按类型分别累积实体
+    std::vector<BaseEntity> allUnits;
+    std::vector<BaseEntity> allInfantry;
 
-    // 通用输入
-    std::cout << "所属方 (如 UnitedStates House): ";
-    std::getline(std::cin, base.owner);
-    std::cout << "类型代码 (单位如 MTNK, 步兵如 E1): ";
-    std::getline(std::cin, base.type);
+    for (int t = 0; t < times; ++t) {
+        std::cout << "\n--- 第 " << (t + 1) << " 组 ---\n";
+        std::cout << "请选择生成类型:\n";
+        std::cout << "1 - 单位 (Vehicle/Unit)\n";
+        std::cout << "2 - 步兵 (Infantry)\n";
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore();
 
-    if (choice == 1) {
-        // 单位特有输入
-        std::cout << "朝向 (0-255, 默认64): ";
-        std::cin >> base.facing;
-        std::cout << "经验等级 (0=新兵,1=老兵,2=精英): ";
-        std::cin >> base.veterancy;
-        std::cout << "分组存储值 (-1=无分组, 0~9 对应游戏显示 1~10): ";
-        std::cin >> base.group;
-        // 单位 layer 固定 -1，稍后在生成时设置
+        BaseEntity base;
+
+        // 通用输入
+        std::cout << "所属方 (如 UnitedStates House): ";
+        std::getline(std::cin, base.owner);
+        std::cout << "类型代码 (单位如 MTNK, 步兵如 E1): ";
+        std::getline(std::cin, base.type);
+
+        if (choice == 1) {
+            // 单位特有输入
+            std::cout << "朝向 (0-255, 默认64): ";
+            std::cin >> base.facing;
+            std::cout << "经验等级 (0=新兵,1=老兵,2=精英): ";
+            std::cin >> base.veterancy;
+            std::cout << "分组存储值 (-1=无分组, 0~9 对应游戏显示 1~10): ";
+            std::cin >> base.group;
+        }
+        else {
+            // 步兵特有输入
+            std::cout << "站位 (1,2,3 统一值): ";
+            std::cin >> base.subPos;
+            std::cout << "经验等级 (通常 0,100,200): ";
+            std::cin >> base.veterancy;
+            std::cout << "分组存储值 (-1=无分组, 0~9 对应游戏显示 1~10): ";
+            std::cin >> base.group;
+            base.facing = 64;
+        }
+
+        // 布局参数（共用）
+        int dir;
+        std::cout << "生成方向 (0=左向, 1=右向): ";
+        std::cin >> dir;
+        bool isRight = (dir == 1);
+        int cornerX, cornerY;
+        std::cout << "角落坐标 X: ";
+        std::cin >> cornerX;
+        std::cout << "角落坐标 Y: ";
+        std::cin >> cornerY;
+        int rows, total;
+        std::cout << "行数: ";
+        std::cin >> rows;
+        std::cout << "总数量: ";
+        std::cin >> total;
+
+        // 生成并追加到对应容器
+        if (choice == 1) {
+            auto units = generateUnitsList(isRight, cornerX, cornerY, rows, total, base);
+            allUnits.insert(allUnits.end(), units.begin(), units.end());
+            std::cout << "已累积 [Units] " << allUnits.size() << " 个\n";
+        }
+        else {
+            auto infantry = generateInfantryList(isRight, cornerX, cornerY, rows, total, base);
+            allInfantry.insert(allInfantry.end(), infantry.begin(), infantry.end());
+            std::cout << "已累积 [Infantry] " << allInfantry.size() << " 个\n";
+        }
+    }
+
+    // 读取模板文件
+    std::ifstream templateFile("FORMS/FORM1.map");
+    std::string templateContent;
+    if (templateFile.is_open()) {
+        std::string line;
+        while (std::getline(templateFile, line)) {
+            templateContent += line + "\n";
+        }
+        templateFile.close();
     }
     else {
-        // 步兵特有输入
-        std::cout << "站位 (1,2,3 统一值): ";
-        std::cin >> base.subPos;
-        std::cout << "经验等级 (通常 0,100,200): ";
-        std::cin >> base.veterancy;
-        std::cout << "分组存储值 (-1=无分组, 0~9 对应游戏显示 1~10): ";
-        std::cin >> base.group;
-        // 步兵的 facing 固定64，不需要输入
-        base.facing = 64;
+        std::cerr << "警告: 无法读取 FORMS/FORM1.map，将只输出生成的区块\n";
     }
 
-    // 生成参数（共用）
-    int dir;
-    std::cout << "生成方向 (0=左向, 1=右向): ";
-    std::cin >> dir;
-    bool isRight = (dir == 1);
-    int cornerX, cornerY;
-    std::cout << "角落坐标 X: ";
-    std::cin >> cornerX;
-    std::cout << "角落坐标 Y: ";
-    std::cin >> cornerY;
-    int rows, total;
-    std::cout << "行数: ";
-    std::cin >> rows;
-    std::cout << "总单位/步兵数量: ";
-    std::cin >> total;
-    int startIndex;
-    std::cout << "起始序号 (例如 0): ";
-    std::cin >> startIndex;
-
-    // 打开输出文件
+    // 写出到 MAPS/test.map
     std::ofstream outFile("MAPS/test.map");
     if (!outFile.is_open()) {
         std::cerr << "错误: 无法创建文件 MAPS/test.map\n";
         return 1;
     }
 
-    // 根据类型生成
-    if (choice == 1) {
-        auto units = generateUnitsList(isRight, cornerX, cornerY, rows, total, base);
-        writeUnitsBlock(outFile, units, startIndex);
-        std::cout << "\n已生成 [Units] 区块并写入 MAPS/test.map\n";
+    // 先写模板内容
+    outFile << templateContent;
+
+    // 再写累积的区块（各区块内部序号从 0 开始）
+    if (!allUnits.empty()) {
+        writeUnitsBlock(outFile, allUnits, 0);
     }
-    else {
-        auto infantry = generateInfantryList(isRight, cornerX, cornerY, rows, total, base);
-        writeInfantryBlock(outFile, infantry, startIndex);
-        std::cout << "\n已生成 [Infantry] 区块并写入 MAPS/test.map\n";
+    std::cout << std::endl;
+    if (!allInfantry.empty()) {
+        writeInfantryBlock(outFile, allInfantry, 0);
     }
 
     outFile.close();
+    std::cout << "\n完成! 已保存到 MAPS/test.map\n";
+    std::cout << "  [Units] " << allUnits.size() << " 条 (序号 0~" << (allUnits.empty() ? 0 : (int)allUnits.size() - 1) << ")\n";
+    std::cout << "  [Infantry] " << allInfantry.size() << " 条 (序号 0~" << (allInfantry.empty() ? 0 : (int)allInfantry.size() - 1) << ")\n";
+
     return 0;
 }

@@ -1,0 +1,15 @@
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\bin\Debug\net9.0-windows\MapSpawnerGUI.exe
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\bin\Debug\net9.0-windows\MapSpawnerGUI.deps.json
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\bin\Debug\net9.0-windows\MapSpawnerGUI.runtimeconfig.json
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\bin\Debug\net9.0-windows\MapSpawnerGUI.dll
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\bin\Debug\net9.0-windows\MapSpawnerGUI.pdb
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.GeneratedMSBuildEditorConfig.editorconfig
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.AssemblyInfoInputs.cache
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.AssemblyInfo.cs
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.csproj.CoreCompileInputs.cache
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.sourcelink.json
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.dll
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\refint\MapSpawnerGUI.dll
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.pdb
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\MapSpawnerGUI.genruntimeconfig.cache
+D:\C++Program\MAP_SPAWNER\MapSpawnerGUI\obj\Debug\net9.0-windows\ref\MapSpawnerGUI.dll

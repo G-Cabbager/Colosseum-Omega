@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "C/C++: g++.exe 编译当前文件",
+            "label": "编译 (Ctrl+Shift+B)",
             "type": "shell",
-            "command": "g++",
+            "command": "D:\\Program Files\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "-std=c++11",
@@ -16,54 +16,9 @@
                 "kind": "build",
                 "isDefault": false
             },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "dedicated"
-            },
             "problemMatcher": [
                 "$gcc"
             ]
-        },
-        {
-            "label": "C/C++: g++.exe 编译并运行当前文件",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "-g",
-                "-std=c++11",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "dependsOn": []
-        },
-        {
-            "label": "运行编译后的程序",
-            "type": "shell",
-            "command": "cmd",
-            "args": [
-                "/c",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
-            "dependsOn": [
-                "C/C++: g++.exe 编译并运行当前文件"
-            ],
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": true,
-                "panel": "dedicated"
-            }
         },
         {
             "type": "cppbuild",
@@ -77,7 +32,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "D:\\Program Files\\Dev-Cpp\\MinGW64\\bin"
+                "cwd": "${fileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
