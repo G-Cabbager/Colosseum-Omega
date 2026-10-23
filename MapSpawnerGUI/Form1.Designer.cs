@@ -46,6 +46,7 @@ partial class Form1
     private System.Windows.Forms.TextBox txtFileName;
     private System.Windows.Forms.Label lblOutputDir;
     private System.Windows.Forms.TextBox txtOutputDir;
+    private System.Windows.Forms.Button btnBrowse;
     private System.Windows.Forms.GroupBox grpOutput;
     private System.Windows.Forms.TextBox txtOutput;
     private System.Windows.Forms.Label lblStatus;
@@ -104,6 +105,7 @@ partial class Form1
         txtFileName = new TextBox();
         lblOutputDir = new Label();
         txtOutputDir = new TextBox();
+        btnBrowse = new Button();
         grpOutput = new GroupBox();
         txtOutput = new TextBox();
         lblStatus = new Label();
@@ -314,23 +316,23 @@ partial class Form1
         numTotal.Maximum = 1000;
         numTotal.Value = 6;
 
-        // btnGenerate
-        btnGenerate.Location = new System.Drawing.Point(12, 330);
-        btnGenerate.Size = new System.Drawing.Size(120, 35);
+        // btnGenerate (右下纵向排列,宽度统一,底边与左侧“布局参数”对齐)
+        btnGenerate.Location = new System.Drawing.Point(630, 170);
+        btnGenerate.Size = new System.Drawing.Size(362, 35);
         btnGenerate.Text = "追加生成";
         btnGenerate.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
         btnGenerate.Click += BtnGenerate_Click;
 
         // btnSave
-        btnSave.Location = new System.Drawing.Point(150, 330);
-        btnSave.Size = new System.Drawing.Size(180, 35);
+        btnSave.Location = new System.Drawing.Point(630, 225);
+        btnSave.Size = new System.Drawing.Size(362, 35);
         btnSave.Text = "保存地图";
         btnSave.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
         btnSave.Click += BtnSave_Click;
 
         // btnClear
-        btnClear.Location = new System.Drawing.Point(350, 330);
-        btnClear.Size = new System.Drawing.Size(100, 35);
+        btnClear.Location = new System.Drawing.Point(630, 280);
+        btnClear.Size = new System.Drawing.Size(362, 35);
         btnClear.Text = "清空";
         btnClear.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
         btnClear.Click += BtnClear_Click;
@@ -342,6 +344,7 @@ partial class Form1
         grpSave.Controls.Add(txtFileName);
         grpSave.Controls.Add(lblOutputDir);
         grpSave.Controls.Add(txtOutputDir);
+        grpSave.Controls.Add(btnBrowse);
         grpSave.Location = new System.Drawing.Point(630, 12);
         grpSave.Size = new System.Drawing.Size(362, 150);
         grpSave.Text = "保存设置";
@@ -369,8 +372,13 @@ partial class Form1
         lblOutputDir.Text = "输出位置:";
 
         txtOutputDir.Location = new System.Drawing.Point(95, 96);
-        txtOutputDir.Size = new System.Drawing.Size(245, 23);
+        txtOutputDir.Size = new System.Drawing.Size(170, 23);
         txtOutputDir.Text = "MAPS";
+
+        btnBrowse.Location = new System.Drawing.Point(270, 95);
+        btnBrowse.Size = new System.Drawing.Size(70, 23);
+        btnBrowse.Text = "浏览…";
+        btnBrowse.Click += BtnBrowseOutputDir_Click;
 
         // lblStatus
         lblStatus.Location = new System.Drawing.Point(12, 380);

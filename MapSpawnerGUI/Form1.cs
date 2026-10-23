@@ -187,6 +187,30 @@ public partial class Form1 : Form
         }
     }
 
+    // 点击“浏览…”按钮:用文件夹对话框选择输出位置
+    private void BtnBrowseOutputDir_Click(object? sender, EventArgs e)
+    {
+        using var dlg = new FolderBrowserDialog
+        {
+            Description = "选择地图输出位置",
+            UseDescriptionForTitle = true,
+            ShowNewFolderButton = true
+        };
+
+        // 当前填的是已存在的目录(相对或绝对)时,作为对话框的起始位置
+        string current = txtOutputDir.Text.Trim();
+        if (current.Length > 0)
+        {
+            string resolved = Path.IsPathRooted(current) ? current : Path.Combine(ResolveDataRoot(), current);
+            if (Directory.Exists(resolved))
+                dlg.InitialDirectory = resolved;
+        }
+
+        // 选定后写入绝对路径(保存时按 Path.IsPathRooted 原样使用)
+        if (dlg.ShowDialog(this) == DialogResult.OK && dlg.SelectedPath.Length > 0)
+            txtOutputDir.Text = dlg.SelectedPath;
+    }
+
     /// <summary>
     /// 定位“数据根目录”(内含 FORMS\FORM1.map 的目录)。
     /// - 发布/独立运行:把 FORMS、MAPS 与 exe 放在同一目录即可命中;
