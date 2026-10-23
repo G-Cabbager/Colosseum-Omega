@@ -2,15 +2,19 @@ namespace MapSpawnerGUI;
 
 static class Program
 {
-    /// <summary>
-    ///  The main entry point for the application.
-    /// </summary>
     [STAThread]
     static void Main()
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
-        ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+        try
+        {
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Form1());
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                $"程序启动失败:\n\n异常类型: {ex.GetType().Name}\n消息: {ex.Message}\n堆栈:\n{ex.StackTrace}",
+                "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }    
 }

@@ -106,7 +106,7 @@ public static class Generator
         {
             var u = units[i];
             sb.AppendLine($"{startIndex + i}={u.Owner},{u.Type},{u.Health},{u.X},{u.Y}," +
-                $"{u.Facing},{u.Status},{u.Tag},0,{u.Group},0,{u.Layer},{u.Veterancy},{u.Reserved2}");
+                $"{u.Facing},{u.Status},{u.Tag},{u.Veterancy},{u.Group},0,{u.Layer},1,{u.Reserved2}");
         }
         return sb.ToString();
     }
@@ -120,7 +120,7 @@ public static class Generator
         {
             var inf = infantry[i];
             sb.AppendLine($"{startIndex + i}={inf.Owner},{inf.Type},{inf.Health},{inf.X},{inf.Y}," +
-                $"{inf.SubPos},{inf.Status},{inf.Facing},{inf.Tag},{inf.Veterancy},{inf.Group},{inf.Layer},{inf.Reserved1},{inf.Reserved2}");
+                $"{inf.SubPos},{inf.Status},{inf.Facing},{inf.Tag},{inf.Veterancy},{inf.Group},0,{inf.Reserved1},{inf.Reserved2}");
         }
         return sb.ToString();
     }

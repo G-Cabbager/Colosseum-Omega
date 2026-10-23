@@ -15,7 +15,7 @@ public class BaseEntity
     public int Health { get; set; } = 256;
     public int X { get; set; }
     public int Y { get; set; }
-    public int Facing { get; set; } = 64;
+    public int Facing { get; set; } = 32;
     public int SubPos { get; set; } = 1;
     public string Status { get; set; } = "Guard";
     public string Tag { get; set; } = "None";

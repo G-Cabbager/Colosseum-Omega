@@ -38,6 +38,7 @@ partial class Form1
     private System.Windows.Forms.NumericUpDown numTotal;
     private System.Windows.Forms.Button btnGenerate;
     private System.Windows.Forms.Button btnSave;
+    private System.Windows.Forms.Button btnClear;
     private System.Windows.Forms.GroupBox grpOutput;
     private System.Windows.Forms.TextBox txtOutput;
     private System.Windows.Forms.Label lblStatus;
@@ -71,6 +72,10 @@ partial class Form1
         grpInfantry = new GroupBox();
         lblSubPos = new Label();
         numSubPos = new NumericUpDown();
+        lblVeterancyInf = new Label();
+        numVeterancyInf = new NumericUpDown();
+        lblGroupInf = new Label();
+        numGroupInf = new NumericUpDown();
         grpLayout = new GroupBox();
         lblDirection = new Label();
         cmbDirection = new ComboBox();
@@ -84,6 +89,7 @@ partial class Form1
         numTotal = new NumericUpDown();
         btnGenerate = new Button();
         btnSave = new Button();
+        btnClear = new Button();
         grpOutput = new GroupBox();
         txtOutput = new TextBox();
         lblStatus = new Label();
@@ -95,6 +101,8 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)numGroup).BeginInit();
         grpInfantry.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numSubPos).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numVeterancyInf).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numGroupInf).BeginInit();
         grpLayout.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numCornerX).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numCornerY).BeginInit();
@@ -138,7 +146,7 @@ partial class Form1
 
         txtOwner.Location = new System.Drawing.Point(80, 30);
         txtOwner.Size = new System.Drawing.Size(200, 23);
-        txtOwner.Text = "UnitedStates";
+        txtOwner.Text = "Europeans House";
 
         lblType.Location = new System.Drawing.Point(305, 32);
         lblType.Size = new System.Drawing.Size(60, 20);
@@ -166,7 +174,7 @@ partial class Form1
         numFacing.Location = new System.Drawing.Point(65, 26);
         numFacing.Size = new System.Drawing.Size(80, 23);
         numFacing.Maximum = 255;
-        numFacing.Value = 64;
+        numFacing.Value = 32;
 
         lblVeterancy.Location = new System.Drawing.Point(175, 28);
         lblVeterancy.Size = new System.Drawing.Size(60, 20);
@@ -174,7 +182,7 @@ partial class Form1
 
         numVeterancy.Location = new System.Drawing.Point(240, 26);
         numVeterancy.Size = new System.Drawing.Size(80, 23);
-        numVeterancy.Maximum = 2;
+        numVeterancy.Maximum = 200;
         numVeterancy.Value = 0;
 
         lblGroup.Location = new System.Drawing.Point(350, 28);
@@ -251,7 +259,7 @@ partial class Form1
         cmbDirection.Size = new System.Drawing.Size(80, 23);
         cmbDirection.DropDownStyle = ComboBoxStyle.DropDownList;
         cmbDirection.Items.AddRange(new object[] { "左向", "右向" });
-        cmbDirection.SelectedIndex = 0;
+        cmbDirection.SelectedIndex = 1;
 
         lblCornerX.Location = new System.Drawing.Point(175, 30);
         lblCornerX.Size = new System.Drawing.Size(50, 20);
@@ -305,6 +313,13 @@ partial class Form1
         btnSave.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
         btnSave.Click += BtnSave_Click;
 
+        // btnClear
+        btnClear.Location = new System.Drawing.Point(350, 330);
+        btnClear.Size = new System.Drawing.Size(100, 35);
+        btnClear.Text = "清空";
+        btnClear.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
+        btnClear.Click += BtnClear_Click;
+
         // lblStatus
         lblStatus.Location = new System.Drawing.Point(12, 380);
         lblStatus.Size = new System.Drawing.Size(980, 25);
@@ -334,6 +349,7 @@ partial class Form1
         Controls.Add(grpLayout);
         Controls.Add(btnGenerate);
         Controls.Add(btnSave);
+        Controls.Add(btnClear);
         Controls.Add(lblStatus);
         Controls.Add(grpOutput);
         Text = "RA2 Map Spawner";
@@ -341,7 +357,6 @@ partial class Form1
         MaximizeBox = false;
         StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 
-        // 默认显示单位面板，隐藏步后面板
         grpInfantry.Visible = false;
         grpInfantry.SendToBack();
         grpUnit.BringToFront();
@@ -358,6 +373,8 @@ partial class Form1
         grpInfantry.ResumeLayout(false);
         grpInfantry.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)numSubPos).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numVeterancyInf).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numGroupInf).EndInit();
         grpLayout.ResumeLayout(false);
         grpLayout.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)numCornerX).EndInit();
@@ -367,5 +384,10 @@ partial class Form1
         grpOutput.ResumeLayout(false);
         grpOutput.PerformLayout();
         ResumeLayout(false);
+
+        // 设置窗体/任务栏图标(内嵌资源 MapSpawnerGUI.app.ico)
+        var iconStream = typeof(Form1).Assembly.GetManifestResourceStream("MapSpawnerGUI.app.ico");
+        if (iconStream != null)
+            Icon = new System.Drawing.Icon(iconStream);
     }
 }

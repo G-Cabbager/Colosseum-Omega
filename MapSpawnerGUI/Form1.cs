@@ -103,6 +103,18 @@ public partial class Form1 : Form
         txtOutput.Text = sb.ToString();
     }
 
+    // 点击"清空"按钮
+    private void BtnClear_Click(object? sender, EventArgs e)
+    {
+        if (_allUnits.Count == 0 && _allInfantry.Count == 0)
+            return;
+
+        _allUnits.Clear();
+        _allInfantry.Clear();
+        UpdatePreview();
+        UpdateStatus();
+    }
+
     // 点击"保存到 test.map"按钮
     private void BtnSave_Click(object? sender, EventArgs e)
     {
@@ -114,8 +126,12 @@ public partial class Form1 : Form
 
         try
         {
+            // 定位数据根目录(内含 FORMS\FORM1.map):发布版把 FORMS/MAPS 与 exe 放一起即命中;
+            // 仓库内原位开发运行(bin\Debug\net9.0-windows 下)则逐级向上找到仓库根,保持原有行为。
+            string dataRoot = ResolveDataRoot();
+
             // 读取模板
-            string templatePath = Path.Combine(Application.StartupPath, "..\\..\\..\\..\\FORMS\\FORM1.map");
+            string templatePath = Path.Combine(dataRoot, "FORMS", "FORM1.map");
             string templateContent = "";
             if (File.Exists(templatePath))
             {
@@ -125,7 +141,8 @@ public partial class Form1 : Form
             }
             else
             {
-                MessageBox.Show("未找到 FORMS/FORM1.map，将只输出生成的区块。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"未找到 FORMS/FORM1.map(已查找: {templatePath}),将只输出生成的区块。",
+                    "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             // 拼接
@@ -137,7 +154,7 @@ public partial class Form1 : Form
                 sb.Append(Generator.WriteInfantryBlock(_allInfantry, 0));
 
             // 写出
-            string outputPath = Path.Combine(Application.StartupPath, "..\\..\\..\\..\\MAPS\\test.map");
+            string outputPath = Path.Combine(dataRoot, "MAPS", "test.map");
             Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
             File.WriteAllText(outputPath, sb.ToString());
 
@@ -148,5 +165,23 @@ public partial class Form1 : Form
         {
             MessageBox.Show($"保存失败: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+    }
+
+    /// <summary>
+    /// 定位“数据根目录”(内含 FORMS\FORM1.map 的目录)。
+    /// - 发布/独立运行:把 FORMS、MAPS 与 exe 放在同一目录即可命中;
+    /// - 仓库内开发运行:从 bin\Debug\net9.0-windows 逐级向上,仍能找到仓库根,行为不变;
+    /// - 兜底:整个盘都找不到模板时退回 exe 所在目录。
+    /// </summary>
+    private static string ResolveDataRoot()
+    {
+        var dir = new DirectoryInfo(Application.StartupPath);
+        while (dir != null)
+        {
+            if (File.Exists(Path.Combine(dir.FullName, "FORMS", "FORM1.map")))
+                return dir.FullName;
+            dir = dir.Parent;
+        }
+        return Application.StartupPath;
     }
 }
