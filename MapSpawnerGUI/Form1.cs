@@ -81,12 +81,14 @@ public partial class Form1 : Form
     }
 
     /// <summary>
-    /// 启动阶段出现非致命问题(如 EnableVisualStyles 写 %TEMP% 被拦截)时,
-    /// 把原因显示到状态栏,让用户知道程序处于降级外观,而不是静默忽略。
+    /// 启动阶段出现非致命问题(如换目录后仍无法初始化视觉样式)时给出提示。
+    /// 注意:附加在状态栏**末尾**,不要挤掉前面的 [Units]/[Infantry] 统计。
     /// </summary>
     public void ShowStartupWarning(string detail)
     {
-        lblStatus.Text = $"⚠ 视觉样式初始化失败,已降级启动 —— {detail}    |    {lblStatus.Text}";
+        string brief = detail.Length > 60 ? detail[..60] + "…" : detail;
+        lblStatus.Text = $"{lblStatus.Text}    ⚠ 视觉样式未启用({brief})";
+        Text = "RA2 Map Spawner [降级模式]";
     }
 
     // 更新状态栏
