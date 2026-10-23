@@ -80,6 +80,15 @@ public partial class Form1 : Form
         }
     }
 
+    /// <summary>
+    /// 启动阶段出现非致命问题(如 EnableVisualStyles 写 %TEMP% 被拦截)时,
+    /// 把原因显示到状态栏,让用户知道程序处于降级外观,而不是静默忽略。
+    /// </summary>
+    public void ShowStartupWarning(string detail)
+    {
+        lblStatus.Text = $"⚠ 视觉样式初始化失败,已降级启动 —— {detail}    |    {lblStatus.Text}";
+    }
+
     // 更新状态栏
     private void UpdateStatus()
     {
