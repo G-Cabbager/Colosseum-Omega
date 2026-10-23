@@ -1,4 +1,4 @@
-namespace MapSpawnerGUI;
+namespace ColosseumOmega;
 
 /// <summary>实体类型</summary>
 public enum EntityType

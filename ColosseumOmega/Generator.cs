@@ -1,4 +1,4 @@
-namespace MapSpawnerGUI;
+namespace ColosseumOmega;
 
 /// <summary>核心生成逻辑</summary>
 public static class Generator

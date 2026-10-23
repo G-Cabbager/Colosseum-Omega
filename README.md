@@ -1,4 +1,4 @@
-# RA2 Map Spawner — 使用与代码说明
+# Colosseum Omega(斗蛐蛐终结)— 使用与代码说明
 
 > 原项目简介:This project enables users to customize settings to generate maps tailored for AI-vs-AI spectator battles (colloquially known as "digital cockfighting") within the Mental Omega 3.3 mod for Command & Conquer: Yuri's Revenge.
 
@@ -50,12 +50,12 @@ FORMS\FORM1.map / FORM2.map / FORM3.map(模板三选一,原样保留)
 
 | 版本 | Release 压缩包 | 体积 | 需要 .NET? | 选择建议 |
 |---|---|---|---|---|
-| **免安装版**(self-contained) | `MapSpawner_selfcontained_win-x64.zip` | 约 43 MB | **不需要** | 首选。拷到任意 64 位 Windows 即可运行 |
-| **框架依赖版**(FDD) | `MapSpawner_framework-dependent_win-x64.zip` | 约 0.7 MB | 需 **.NET 9 Desktop Runtime (x64)** | 本机已装 .NET、想要小体积时选它 |
+| **免安装版**(self-contained) | `ColosseumOmega_selfcontained_win-x64.zip` | 约 43 MB | **不需要** | 首选。拷到任意 64 位 Windows 即可运行 |
+| **框架依赖版**(FDD) | `ColosseumOmega_framework-dependent_win-x64.zip` | 约 0.7 MB | 需 **.NET 9 Desktop Runtime (x64)** | 本机已装 .NET、想要小体积时选它 |
 
-两者都在仓库的 [Releases 页面](https://github.com/G-Cabbager/Map_Spawner/releases) 下载,**解压后双击 `MapSpawnerGUI.exe` 即可使用**,无需安装。
+两者都在仓库的 [Releases 页面](https://github.com/G-Cabbager/Map_Spawner/releases) 下载,**解压后双击 `ColosseumOmega.exe` 即可使用**,无需安装。
 
-> 解压后请**整个文件夹一起使用**:`FORMS`、`MAPS` 必须与 `MapSpawnerGUI.exe` 同级(见 2.2)。
+> 解压后请**整个文件夹一起使用**:`FORMS`、`MAPS` 必须与 `ColosseumOmega.exe` 同级(见 2.2)。
 > 想自己从源码构建,见第 5 节。
 
 ### 2.1 为什么用 `PublishGUI-SC`
@@ -65,7 +65,7 @@ FORMS\FORM1.map / FORM2.map / FORM3.map(模板三选一,原样保留)
 | 特性 | 说明 |
 |---|---|
 | 无需安装 .NET | 运行时已打包进 exe,拷到任意 64 位 Windows 即可运行 |
-| 只有一个程序文件 | `MapSpawnerGUI.exe`(约 48.6 MB),运行时库已压缩内嵌 |
+| 只有一个程序文件 | `ColosseumOmega.exe`(约 48.6 MB),运行时库已压缩内嵌 |
 | 首次启动稍慢 | 单文件需自解压到临时目录,约 1~2 秒,属正常现象 |
 | 数据仍外置 | `FORMS`、`MAPS` 两个文件夹必须与 exe 同级(见下) |
 
@@ -73,7 +73,7 @@ FORMS\FORM1.map / FORM2.map / FORM3.map(模板三选一,原样保留)
 
 ```
 PublishGUI-SC\
-├── MapSpawnerGUI.exe       ← 双击这个启动
+├── ColosseumOmega.exe       ← 双击这个启动
 ├── FORMS\
 │   ├── FORM1.map           ← 预设1 用的地图模板(只读,勿删)
 │   ├── FORM2.map           ← 预设2(新建时为空文件)
@@ -84,13 +84,13 @@ PublishGUI-SC\
 
 > ⚠️ **三个硬性注意**
 > 1. 必须**整个文件夹**一起拷贝/分发,**不要只拷 exe**;
-> 2. `FORMS`、`MAPS` 必须与 `MapSpawnerGUI.exe` **同级**;
+> 2. `FORMS`、`MAPS` 必须与 `ColosseumOmega.exe` **同级**;
 > 3. 若所选模板缺失,程序会弹警告并**只输出生成区块**(地图不完整)。
 
 ### 2.3 操作流程
 
 1. 把 `PublishGUI-SC` 整个文件夹复制到任意位置(建议路径不含特殊符号);
-2. 双击 `MapSpawnerGUI.exe`;
+2. 双击 `ColosseumOmega.exe`;
 3. 顶部选择 **单位 (Unit)** 或 **步兵 (Infantry)**;
 4. 填写通用参数与类型参数,设置布局参数(方向/角坐标/行数/总数);
 5. 点 **追加生成** —— 可反复调整参数后多次追加,结果会累积;
@@ -122,7 +122,7 @@ PublishGUI-SC\
 | `FORMS/FORM1.map` | 地图模板(约 84 KB),预设1 使用。程序读取后原样作为输出开头 |
 | `FORMS/FORM2.map`、`FORM3.map` | 预设2 / 预设3 的模板,仓库内为**空文件**,放入自己的地图即生效 |
 | `MAPS/test.map` | 默认输出文件(约 94 KB)。按“保存设置”默认值保存时会重写它 |
-| `MapSpawnerGUI/` | **主程序源码**(.NET 9 WinForms),详见 3.2 |
+| `ColosseumOmega/` | **主程序源码**(.NET 9 WinForms),详见 3.2 |
 | `main.cpp` / `main.exe` | 早期 C++ 控制台版本,算法参考实现,详见第 9 节 |
 | `.vscode/tasks.json` | 用 MinGW `g++` 编译 `main.cpp` 的构建任务(与 GUI 无关) |
 | `.gitignore` | 忽略 `bin/`、`obj/`、`PublishGUI/`、`PublishGUI-SC/` 等可再生产物 |
@@ -131,7 +131,7 @@ PublishGUI-SC\
 
 > `PublishGUI-SC` 是**自包含免安装版**,`PublishGUI` 是**框架依赖版**,二者均由第 5 节的发布命令生成,不纳入版本控制。
 
-### 3.2 `MapSpawnerGUI/` 源码目录
+### 3.2 `ColosseumOmega/` 源码目录
 
 | 文件 | 作用 |
 |---|---|
@@ -140,13 +140,13 @@ PublishGUI-SC\
 | `Form1.Designer.cs` | 界面布局与控件定义、事件绑定、窗体图标加载(设计器生成,手改需谨慎) |
 | `Generator.cs` | **核心算法**:坐标排布、实体批量生成、`[Units]`/`[Infantry]` 文本输出 |
 | `Models.cs` | 数据模型:`EntityType` 枚举与 `BaseEntity` 实体字段 |
-| `MapSpawnerGUI.csproj` | 工程文件:`WinExe` / `net9.0-windows` / WinForms / 图标与内嵌资源 |
+| `ColosseumOmega.csproj` | 工程文件:`WinExe` / `net9.0-windows` / WinForms / 图标与内嵌资源 |
 | `app.ico` | 程序图标(多尺寸,由 `make_icon.ps1` 生成,约 184 KB) |
 | `iconic.png` | 图标源图(1080×1080),换图标时替换它 |
 | `iconic.jpg` | 源图的另一格式备份(不参与构建) |
 | `make_icon.ps1` | PNG → ICO 转换脚本(输出 256/128/64/48/32/24/16 七种尺寸) |
 | `bin/`、`obj/` | 构建中间产物与输出,可安全删除后重建 |
-| `MapSpawnerGUI.csproj.user` | 本机 VS 配置(不参与发布) |
+| `ColosseumOmega.csproj.user` | 本机 VS 配置(不参与发布) |
 
 ---
 
@@ -320,12 +320,12 @@ iconic.png (1080×1080 源图)
    │  powershell -ExecutionPolicy Bypass -File make_icon.ps1 -Png iconic.png -OutIco app.ico
    ▼
 app.ico (256/128/64/48/32/24/16,PNG 条目,支持透明)
-   │  MapSpawnerGUI.csproj:
+   │  ColosseumOmega.csproj:
    │    <ApplicationIcon>app.ico</ApplicationIcon>              → exe 文件图标
-   │    <EmbeddedResource Include="app.ico" LogicalName="MapSpawnerGUI.app.ico" /> → 内嵌资源
+   │    <EmbeddedResource Include="app.ico" LogicalName="ColosseumOmega.app.ico" /> → 内嵌资源
    ▼
 Form1.Designer.cs 末尾:
-   Assembly.GetManifestResourceStream("MapSpawnerGUI.app.ico") → Icon = new Icon(stream)
+   Assembly.GetManifestResourceStream("ColosseumOmega.app.ico") → Icon = new Icon(stream)
                                                               → 窗口标题栏/任务栏图标
 ```
 
@@ -351,16 +351,16 @@ Form1.Designer.cs 末尾:
 在**仓库根**执行:
 
 ```powershell
-dotnet build MapSpawnerGUI\MapSpawnerGUI.csproj -c Debug
+dotnet build ColosseumOmega\ColosseumOmega.csproj -c Debug
 ```
 
-产物:`MapSpawnerGUI\bin\Debug\net9.0-windows\MapSpawnerGUI.exe`。
+产物:`ColosseumOmega\bin\Debug\net9.0-windows\ColosseumOmega.exe`。
 直接运行该 exe 时,`ResolveDataRoot()` 会向上找到仓库根,读写仓库里的 `FORMS` / `MAPS`(见 2.4)。
 
 ### 5.3 发布免安装版(生成 Release 附件)
 
 ```powershell
-dotnet publish MapSpawnerGUI\MapSpawnerGUI.csproj -c Release -r win-x64 --self-contained true `
+dotnet publish ColosseumOmega\ColosseumOmega.csproj -c Release -r win-x64 --self-contained true `
   -p:PublishSingleFile=true `
   -p:IncludeNativeLibrariesForSelfExtract=true `
   -p:EnableCompressionInSingleFile=true `
@@ -374,7 +374,7 @@ dotnet publish MapSpawnerGUI\MapSpawnerGUI.csproj -c Release -r win-x64 --self-c
 |---|---|
 | `-r win-x64` | 目标平台为 64 位 Windows |
 | `--self-contained true` | 把 .NET 运行时一起打包,目标机无需安装 |
-| `PublishSingleFile=true` | 合并为单个 `MapSpawnerGUI.exe` |
+| `PublishSingleFile=true` | 合并为单个 `ColosseumOmega.exe` |
 | `IncludeNativeLibrariesForSelfExtract=true` | 原生库随单文件自解压(单文件运行所需) |
 | `EnableCompressionInSingleFile=true` | 压缩内嵌运行时,体积更小、首次启动略慢 |
 | `DebugType=None` | 不生成 `.pdb` 调试符号 |
@@ -384,7 +384,7 @@ dotnet publish MapSpawnerGUI\MapSpawnerGUI.csproj -c Release -r win-x64 --self-c
 ```powershell
 Copy-Item FORMS PublishGUI-SC\ -Recurse -Force
 Copy-Item MAPS  PublishGUI-SC\ -Recurse -Force
-Compress-Archive -Path PublishGUI-SC -DestinationPath MapSpawner_selfcontained_win-x64.zip -Force
+Compress-Archive -Path PublishGUI-SC -DestinationPath ColosseumOmega_selfcontained_win-x64.zip -Force
 ```
 
 把生成的 zip 上传到 [Releases](https://github.com/G-Cabbager/Map_Spawner/releases) 即可。最终结构与第 2.2 节一致。
@@ -392,17 +392,17 @@ Compress-Archive -Path PublishGUI-SC -DestinationPath MapSpawner_selfcontained_w
 ### 5.4 发布框架依赖版(体积小)
 
 ```powershell
-dotnet publish MapSpawnerGUI\MapSpawnerGUI.csproj -c Release -o PublishGUI
+dotnet publish ColosseumOmega\ColosseumOmega.csproj -c Release -o PublishGUI
 Copy-Item FORMS PublishGUI\ -Recurse -Force
 Copy-Item MAPS  PublishGUI\ -Recurse -Force
-Compress-Archive -Path PublishGUI -DestinationPath MapSpawner_framework-dependent_win-x64.zip -Force
+Compress-Archive -Path PublishGUI -DestinationPath ColosseumOmega_framework-dependent_win-x64.zip -Force
 ```
 
-产物为多文件目录(含 `MapSpawnerGUI.dll` 等),目标机必须装有 .NET 9 Desktop Runtime,否则双击会提示缺少运行时。压缩后约 **0.7 MB**,适合“本机已装 .NET、只想快速更新”的场景。
+产物为多文件目录(含 `ColosseumOmega.dll` 等),目标机必须装有 .NET 9 Desktop Runtime,否则双击会提示缺少运行时。压缩后约 **0.7 MB**,适合“本机已装 .NET、只想快速更新”的场景。
 
 ### 5.5 发布注意事项
 
-- **先关闭正在运行的程序**:若 `PublishGUI\MapSpawnerGUI.dll` 被占用,`dotnet publish` 会出现 `MSB3026` 复制重试甚至失败。关闭所有 `MapSpawnerGUI.exe` 进程后重试即可;
+- **先关闭正在运行的程序**:若 `PublishGUI\ColosseumOmega.dll` 被占用,`dotnet publish` 会出现 `MSB3026` 复制重试甚至失败。关闭所有 `ColosseumOmega.exe` 进程后重试即可;
 - 两个发布目录互不影响,可同时存在;
 - 若资源管理器仍显示旧图标,执行 `ie4uinit.exe -show` 或重启资源管理器刷新图标缓存。
 
@@ -434,7 +434,7 @@ Compress-Archive -Path PublishGUI -DestinationPath MapSpawner_framework-dependen
 exe 图标需重新构建才更新;资源管理器缓存可用 `ie4uinit.exe -show` 刷新。
 
 **Q8:发布时出现 MSB3026、文件被占用?**
-有正在运行的 `MapSpawnerGUI.exe` 锁住了输出目录里的 dll,关闭后重试。
+有正在运行的 `ColosseumOmega.exe` 锁住了输出目录里的 dll,关闭后重试。
 
 **Q9:生成后进游戏看不到单位?**
 先用“输出预览”核对坐标与类型代码;确认保存的是最新文件(看弹窗里的绝对路径);再核对地图编辑器/游戏读取的路径。坐标过大可能落在地图边界外。
@@ -462,12 +462,12 @@ exe 图标需重新构建才更新;资源管理器缓存可用 `ie4uinit.exe -sh
 |---|---|---|
 | 换基础地图模板 | 覆盖 `FORMS\FORM1.map`(或 FORM2/FORM3.map) | 发布目录里的模板也要一起更新;模板末尾建议保留换行 |
 | 增加预设数量 | `Form1.PresetForms` 数组 → `Form1.Designer.cs` 的 `cmbPreset.Items` | **两处顺序必须一一对应**;再放一份 `FORMn.map` 到 `FORMS` |
-| 换程序图标 | 替换 `MapSpawnerGUI\iconic.png`,运行 `make_icon.ps1` 重新生成 `app.ico` | 之后必须重新构建/发布,exe 图标才会更新 |
+| 换程序图标 | 替换 `ColosseumOmega\iconic.png`,运行 `make_icon.ps1` 重新生成 `app.ico` | 之后必须重新构建/发布,exe 图标才会更新 |
 | 改排布规则 | `Generator.GeneratePositions` | 改完用“输出预览”核对坐标;同步更新本文 4.3 |
 | 改输出字段/顺序 | `Generator.WriteUnitsBlock` / `WriteInfantryBlock` | **务必同步更新本文 4.6**,并确认游戏实际解析格式 |
 | 增加界面参数 | `Form1.Designer.cs` 加控件 → `Form1.BtnGenerate_Click` 读取 → `BaseEntity` 加字段 | 设计器文件手改时注意控件初始化顺序 |
 | 支持分类型清空 | `Form1.BtnClear_Click` | 需新增按钮或按当前选中类型清理 |
-| 换 .NET 版本 | `MapSpawnerGUI.csproj` 的 `TargetFramework` | 目标机运行时要求随之变化;免安装版不受影响 |
+| 换 .NET 版本 | `ColosseumOmega.csproj` 的 `TargetFramework` | 目标机运行时要求随之变化;免安装版不受影响 |
 
 > 改完代码后:先用 5.2 重新构建验证,再按 5.3 / 5.4 重新发布两个版本,把新 zip 上传到 Releases。`FORMS` / `MAPS` 有改动时记得一并同步进发布目录。
 

@@ -1,4 +1,4 @@
-namespace MapSpawnerGUI;
+namespace ColosseumOmega;
 
 static class Program
 {
@@ -46,7 +46,7 @@ static class Program
 
     /// <summary>
     /// 检测临时目录是否可写;不可写时把本进程的 TEMP/TMP 改到可写位置。
-    /// 候选顺序:程序目录下的 .tmp → %LOCALAPPDATA%\MapSpawnerGUI\tmp。
+    /// 候选顺序:程序目录下的 .tmp → %LOCALAPPDATA%\ColosseumOmega\tmp。
     /// 全部失败则不做改动,由调用方降级处理。
     /// </summary>
     private static void EnsureWritableTemp()
@@ -61,7 +61,7 @@ static class Program
 
         string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         if (!string.IsNullOrEmpty(localAppData))
-            candidates.Add(Path.Combine(localAppData, "MapSpawnerGUI", "tmp"));
+            candidates.Add(Path.Combine(localAppData, "ColosseumOmega", "tmp"));
 
         foreach (string dir in candidates)
         {
@@ -86,7 +86,7 @@ static class Program
         {
             string dir = Path.GetTempPath();
             Directory.CreateDirectory(dir);
-            string probe = Path.Combine(dir, "MapSpawnerGUI_" + Guid.NewGuid().ToString("N") + ".tmp");
+            string probe = Path.Combine(dir, "ColosseumOmega_" + Guid.NewGuid().ToString("N") + ".tmp");
             using (new FileStream(probe, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1, FileOptions.DeleteOnClose))
             {
             }

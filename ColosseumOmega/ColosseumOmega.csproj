@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- 版本号采用四段式,便于小步递增:v1.0.0.1 → v1.0.0.2 ... -->
+    <Version>1.0.0.1</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Product>Colosseum Omega</Product>
+    <AssemblyTitle>Colosseum Omega</AssemblyTitle>
+    <Description>Colosseum Omega(斗蛐蛐终结)—— RA2 / Mental Omega 观战地图生成器</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico" LogicalName="ColosseumOmega.app.ico" />
+  </ItemGroup>
+
+</Project>

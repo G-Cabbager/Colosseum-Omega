@@ -1,4 +1,4 @@
-namespace MapSpawnerGUI;
+namespace ColosseumOmega;
 
 partial class Form1
 {
@@ -413,7 +413,7 @@ partial class Form1
         Controls.Add(btnClear);
         Controls.Add(lblStatus);
         Controls.Add(grpOutput);
-        Text = "RA2 Map Spawner";
+        Text = "Colosseum Omega";
         FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
         MaximizeBox = false;
         StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -448,8 +448,8 @@ partial class Form1
         grpOutput.PerformLayout();
         ResumeLayout(false);
 
-        // 设置窗体/任务栏图标(内嵌资源 MapSpawnerGUI.app.ico)
-        var iconStream = typeof(Form1).Assembly.GetManifestResourceStream("MapSpawnerGUI.app.ico");
+        // 设置窗体/任务栏图标(内嵌资源 ColosseumOmega.app.ico)
+        var iconStream = typeof(Form1).Assembly.GetManifestResourceStream("ColosseumOmega.app.ico");
         if (iconStream != null)
             Icon = new System.Drawing.Icon(iconStream);
     }

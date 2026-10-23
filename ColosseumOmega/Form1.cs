@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace MapSpawnerGUI;
+namespace ColosseumOmega;
 
 public partial class Form1 : Form
 {
@@ -88,7 +88,7 @@ public partial class Form1 : Form
     {
         string brief = detail.Length > 60 ? detail[..60] + "…" : detail;
         lblStatus.Text = $"{lblStatus.Text}    ⚠ 视觉样式未启用({brief})";
-        Text = "RA2 Map Spawner [降级模式]";
+        Text = "Colosseum Omega [降级模式]";
     }
 
     // 更新状态栏
