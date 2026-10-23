@@ -1,0 +1,14 @@
+# ---- .NET 构建产物(可随时重建,不应入库) ----
+bin/
+obj/
+
+# ---- 发布产物(dotnet publish 生成;分发走 GitHub Releases) ----
+PublishGUI/
+PublishGUI-SC/
+
+# ---- 编辑器 / 系统 ----
+.vs/
+*.user
+*.ncb
+*.suo
+Thumbs.db
