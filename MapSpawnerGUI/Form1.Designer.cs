@@ -39,6 +39,13 @@ partial class Form1
     private System.Windows.Forms.Button btnGenerate;
     private System.Windows.Forms.Button btnSave;
     private System.Windows.Forms.Button btnClear;
+    private System.Windows.Forms.GroupBox grpSave;
+    private System.Windows.Forms.Label lblPreset;
+    private System.Windows.Forms.ComboBox cmbPreset;
+    private System.Windows.Forms.Label lblFileName;
+    private System.Windows.Forms.TextBox txtFileName;
+    private System.Windows.Forms.Label lblOutputDir;
+    private System.Windows.Forms.TextBox txtOutputDir;
     private System.Windows.Forms.GroupBox grpOutput;
     private System.Windows.Forms.TextBox txtOutput;
     private System.Windows.Forms.Label lblStatus;
@@ -90,6 +97,13 @@ partial class Form1
         btnGenerate = new Button();
         btnSave = new Button();
         btnClear = new Button();
+        grpSave = new GroupBox();
+        lblPreset = new Label();
+        cmbPreset = new ComboBox();
+        lblFileName = new Label();
+        txtFileName = new TextBox();
+        lblOutputDir = new Label();
+        txtOutputDir = new TextBox();
         grpOutput = new GroupBox();
         txtOutput = new TextBox();
         lblStatus = new Label();
@@ -108,6 +122,7 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)numCornerY).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numRows).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numTotal).BeginInit();
+        grpSave.SuspendLayout();
         grpOutput.SuspendLayout();
         SuspendLayout();
 
@@ -309,7 +324,7 @@ partial class Form1
         // btnSave
         btnSave.Location = new System.Drawing.Point(150, 330);
         btnSave.Size = new System.Drawing.Size(180, 35);
-        btnSave.Text = "保存到 test.map";
+        btnSave.Text = "保存地图";
         btnSave.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
         btnSave.Click += BtnSave_Click;
 
@@ -320,10 +335,47 @@ partial class Form1
         btnClear.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
         btnClear.Click += BtnClear_Click;
 
+        // grpSave(占据右侧原本空白的区域)
+        grpSave.Controls.Add(lblPreset);
+        grpSave.Controls.Add(cmbPreset);
+        grpSave.Controls.Add(lblFileName);
+        grpSave.Controls.Add(txtFileName);
+        grpSave.Controls.Add(lblOutputDir);
+        grpSave.Controls.Add(txtOutputDir);
+        grpSave.Location = new System.Drawing.Point(630, 12);
+        grpSave.Size = new System.Drawing.Size(362, 150);
+        grpSave.Text = "保存设置";
+
+        lblPreset.Location = new System.Drawing.Point(15, 30);
+        lblPreset.Size = new System.Drawing.Size(45, 20);
+        lblPreset.Text = "预设:";
+
+        cmbPreset.Location = new System.Drawing.Point(65, 28);
+        cmbPreset.Size = new System.Drawing.Size(130, 23);
+        cmbPreset.DropDownStyle = ComboBoxStyle.DropDownList;
+        cmbPreset.Items.AddRange(new object[] { "预设1", "预设2", "预设3" });
+        cmbPreset.SelectedIndex = 0;
+
+        lblFileName.Location = new System.Drawing.Point(15, 64);
+        lblFileName.Size = new System.Drawing.Size(60, 20);
+        lblFileName.Text = "文件名:";
+
+        txtFileName.Location = new System.Drawing.Point(80, 62);
+        txtFileName.Size = new System.Drawing.Size(200, 23);
+        txtFileName.Text = "test";
+
+        lblOutputDir.Location = new System.Drawing.Point(15, 98);
+        lblOutputDir.Size = new System.Drawing.Size(75, 20);
+        lblOutputDir.Text = "输出位置:";
+
+        txtOutputDir.Location = new System.Drawing.Point(95, 96);
+        txtOutputDir.Size = new System.Drawing.Size(245, 23);
+        txtOutputDir.Text = "MAPS";
+
         // lblStatus
         lblStatus.Location = new System.Drawing.Point(12, 380);
         lblStatus.Size = new System.Drawing.Size(980, 25);
-        lblStatus.Text = "提示: 点击 [追加生成] 可多次累积，点击 [保存到 test.map] 写出文件";
+        lblStatus.Text = "提示: 点击 [追加生成] 可多次累积，点击 [保存地图] 按“保存设置”写出文件";
 
         // grpOutput
         grpOutput.Controls.Add(txtOutput);
@@ -347,6 +399,7 @@ partial class Form1
         Controls.Add(grpUnit);
         Controls.Add(grpInfantry);
         Controls.Add(grpLayout);
+        Controls.Add(grpSave);
         Controls.Add(btnGenerate);
         Controls.Add(btnSave);
         Controls.Add(btnClear);
@@ -381,6 +434,8 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)numCornerY).EndInit();
         ((System.ComponentModel.ISupportInitialize)numRows).EndInit();
         ((System.ComponentModel.ISupportInitialize)numTotal).EndInit();
+        grpSave.ResumeLayout(false);
+        grpSave.PerformLayout();
         grpOutput.ResumeLayout(false);
         grpOutput.PerformLayout();
         ResumeLayout(false);

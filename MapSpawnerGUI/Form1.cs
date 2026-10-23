@@ -89,7 +89,7 @@ public partial class Form1 : Form
         string iInfo = _allInfantry.Count > 0
             ? $"[Infantry] {_allInfantry.Count} 条 (序号 0~{_allInfantry.Count - 1})"
             : "[Infantry] 0 条";
-        lblStatus.Text = $"{uInfo}  |  {iInfo}    (继续调整参数可追加生成，完成后点 [保存到 test.map])";
+        lblStatus.Text = $"{uInfo}  |  {iInfo}    (继续调整参数可追加生成，完成后点 [保存地图])";
     }
 
     // 更新输出预览
@@ -115,7 +115,10 @@ public partial class Form1 : Form
         UpdateStatus();
     }
 
-    // 点击"保存到 test.map"按钮
+    // 预设 -> FORMS 目录下的模板文件名(顺序与 cmbPreset 的项一一对应)
+    private static readonly string[] PresetForms = { "FORM1.map", "FORM2.map", "FORM3.map" };
+
+    // 点击"保存地图"按钮
     private void BtnSave_Click(object? sender, EventArgs e)
     {
         if (_allUnits.Count == 0 && _allInfantry.Count == 0)
@@ -130,18 +133,24 @@ public partial class Form1 : Form
             // 仓库内原位开发运行(bin\Debug\net9.0-windows 下)则逐级向上找到仓库根,保持原有行为。
             string dataRoot = ResolveDataRoot();
 
+            // 按“保存设置”里的预设选择模板
+            int presetIndex = cmbPreset.SelectedIndex;
+            if (presetIndex < 0 || presetIndex >= PresetForms.Length) presetIndex = 0;
+            string presetName = PresetForms[presetIndex];
+
             // 读取模板
-            string templatePath = Path.Combine(dataRoot, "FORMS", "FORM1.map");
+            string templatePath = Path.Combine(dataRoot, "FORMS", presetName);
             string templateContent = "";
             if (File.Exists(templatePath))
             {
                 templateContent = File.ReadAllText(templatePath);
-                if (!templateContent.EndsWith("\n"))
+                // 空模板(如刚新建的 FORM2/FORM3)不补换行,避免输出开头多出一个空行
+                if (templateContent.Length > 0 && !templateContent.EndsWith("\n"))
                     templateContent += "\n";
             }
             else
             {
-                MessageBox.Show($"未找到 FORMS/FORM1.map(已查找: {templatePath}),将只输出生成的区块。",
+                MessageBox.Show($"未找到 FORMS\\{presetName}(已查找: {templatePath}),将只输出生成的区块。",
                     "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
@@ -153,12 +162,23 @@ public partial class Form1 : Form
             if (_allInfantry.Count > 0)
                 sb.Append(Generator.WriteInfantryBlock(_allInfantry, 0));
 
-            // 写出
-            string outputPath = Path.Combine(dataRoot, "MAPS", "test.map");
+            // 输出目标:文件名 + 位置
+            string fileName = txtFileName.Text.Trim();
+            if (fileName.Length == 0) fileName = "test";
+            if (!fileName.EndsWith(".map", StringComparison.OrdinalIgnoreCase))
+                fileName += ".map";
+
+            string dirInput = txtOutputDir.Text.Trim();
+            if (dirInput.Length == 0) dirInput = "MAPS";
+            // 相对路径按数据根解析(默认 MAPS);绝对路径原样使用,便于直接输出到游戏地图目录
+            string outputDir = Path.IsPathRooted(dirInput) ? dirInput : Path.Combine(dataRoot, dirInput);
+            string outputPath = Path.Combine(outputDir, fileName);
+
             Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
             File.WriteAllText(outputPath, sb.ToString());
 
-            MessageBox.Show($"已保存到:\n{outputPath}\n\n[Units] {_allUnits.Count} 条  [Infantry] {_allInfantry.Count} 条",
+            MessageBox.Show(
+                $"已保存到:\n{outputPath}\n\n模板: FORMS\\{presetName}\n[Units] {_allUnits.Count} 条  [Infantry] {_allInfantry.Count} 条",
                 "保存成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
